@@ -13,6 +13,16 @@ const connection = require("./Config/db");
 const QuizModel = require("./Models/QuizModel");
 
 app.get("/", async (req, res) => {
+  try {
+    let quiz = await QuizModel.find();
+    res.send(quiz);
+  } catch (error) {
+    console.log(error);
+    res.send("Error");
+  }
+});
+
+app.get("/quiz", async (req, res) => {
   let keyword = req.query.category;
   let keyword2 = req.query.level;
   let apiLimit = Number(req.query.limit);
